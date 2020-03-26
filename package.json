@@ -1,0 +1,71 @@
+{
+  "name": "dragonballstore",
+  "version": "1.0.0",
+  "description": "Store for dragonball figuarts",
+  "main": "./src/Client/index.js",
+  "contributors": [
+    {
+      "name": "Rafael Lopez",
+      "email": "rafael.iskoat@gmail.com",
+      "url": "https://github.com/Rafael-LH"
+    },
+    {
+      "name": "Edgar Figueroa",
+      "email": "edgar.figueroa.gtz@gmail.com",
+      "url": "https://github.com/eddcode"
+    }
+  ],
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "server": "nodemon src/Server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FiguartsDB/DragonBallStore.git"
+  },
+  "author": "FiguartsDB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FiguartsDB/DragonBallStore/issues"
+  },
+  "homepage": "https://github.com/FiguartsDB/DragonBallStore#readme",
+  "dependencies": {
+    "concurrently": "5.1.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.9.0",
+    "@babel/plugin-transform-runtime": "7.9.0",
+    "@babel/preset-env": "7.9.0",
+    "@babel/preset-react": "7.9.4",
+    "babel-loader": "8.1.0",
+    "css-loader": "3.4.2",
+    "file-loader": "6.0.0",
+    "html-loader": "1.0.0",
+    "html-webpack-plugin": "^4.0.1",
+    "jest": "25.2.0",
+    "nodemon": "^2.0.2",
+    "postcss-loader": "3.0.0",
+    "postcss-preset-env": "6.7.0",
+    "style-loader": "1.1.3",
+    "webpack": "4.42.1",
+    "webpack-cli": "3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "browserslist": [
+    "last 2 version",
+    "> 2%"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
+    ]
+  }
+}
