@@ -1,5 +1,3 @@
-
-
 function getIP(interfaces) {
     function reduceAddr(addresses, ifname) {
         // Get all Networks ipv4
@@ -16,4 +14,4 @@ function getIP(interfaces) {
     }
 }
 
-module.exports = getIP
+export default getIP

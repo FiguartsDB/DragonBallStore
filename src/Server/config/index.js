@@ -1,5 +1,15 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
 
-module.exports = {
-    port: process.env.PORT
+dotenv.config()
+
+module.exports ={
+  env: process.env.NODE_ENV === 'production',
+  port: process.env.PORT || 3000,
+  db: {
+	name: process.env.DB_NAME,
+	user: process.env.DB_USER,
+	pwd: process.env.DB_PASSWORD,
+	host: process.env.DB_HOST,
+	dialect: process.env.DB_DIALECT
+  }
 }
