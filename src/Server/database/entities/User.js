@@ -41,6 +41,10 @@ const User = (sequilize, DataType) =>
 	avatar: {
 	  type: DataType.STRING,
 	  allowNull: true
+	},
+	validated: {
+	  type: DataType.BOOLEAN,
+	  allowNull: false
 	}
   })
 
