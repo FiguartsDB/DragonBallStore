@@ -9,7 +9,6 @@ route.get('/goku', (req, res) => {
   res.json({status: 200, result: "Hola soy goku"})
 })
 
-
 route.post('/', (req, res) => {
   res.json({status: 200, message: 'figure created'})
 })

@@ -68,6 +68,9 @@
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.10.3"
   },
+  "nodemonConfig": {
+	"ignore": ["src/Client", "node_modules", "build", "*.config.js", "*.json"]
+  },
   "browserslist": [
     "last 2 version",
     "> 2%"
