@@ -9,7 +9,7 @@ dotenv.config();
 const DIR_BASE = path.join(__dirname, 'build');
 const pathResolve = (route) => path.resolve(__dirname, route);
 
-
+const API_PORT = process.env.PORT || 3000;
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -68,7 +68,7 @@ module.exports = {
         }),
 	  new webpack.EnvironmentPlugin({
 		NODE_ENV: process.env.NODE_ENV || 'development',
-		API: process.env.API || `http://localhost:3000/api/`
+		API: process.env.API || `http://localhost:${API_PORT}/api/`
 	  })
     ]
 }
