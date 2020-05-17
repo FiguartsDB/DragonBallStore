@@ -5,6 +5,16 @@ import { useQuery } from '@apollo/react-hooks'
 import { GET_USERS } from '../api/User'
 
 const Home = () => {
+  return (
+	<>
+	  <h1>Home</h1>
+	  <UserData userId={3}/>
+	</>
+  )
+}
+
+
+const UserData = ({ userId }) => {
   const { loading, error, data } = useQuery(GET_USERS, {
 	variables: { userId: 3}
   })
@@ -14,9 +24,8 @@ const Home = () => {
   if(loading) isLoading = <p>Loading ...</p>
   if(error) isError = <p>Error</p>
 
-  return (
-	<>
-	  <h1>Home</h1>
+	return (
+	  <>
 	  {isLoading && isLoading}
 	  {isError && isError}
 	  {data && data.getUsers.map( user => (
@@ -30,8 +39,8 @@ const Home = () => {
 		  <p>{data.getUser.avatar}</p>
 		</div>
 	  )}
-	</>
-  )
+	  </>
+	)
 }
 
 
