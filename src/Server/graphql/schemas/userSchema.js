@@ -26,7 +26,7 @@ const User = new GraphQLObjectType({
     name: 'user',
     fields: {
       id: {
-        type: new GraphQLNonNull(GraphQLID),
+        type: GraphQLID,
         resolve(user){
           return  user.id
         }

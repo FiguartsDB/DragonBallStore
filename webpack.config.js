@@ -1,9 +1,15 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
 
+
+dotenv.config();
 // Bundled files dir.
 const DIR_BASE = path.join(__dirname, 'build');
 const pathResolve = (route) => path.resolve(__dirname, route);
+
+
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -60,5 +66,9 @@ module.exports = {
             title: 'DragonBall Store',
             favicon: './public/favicon.ico',
         }),
+	  new webpack.EnvironmentPlugin({
+		NODE_ENV: process.env.NODE_ENV || 'development',
+		API: process.env.API || `http://localhost:3000/api/`
+	  })
     ]
 }

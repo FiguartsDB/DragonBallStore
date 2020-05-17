@@ -12,7 +12,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.use('/graphbatch', graphqlHTTP({
+app.use('/api', graphqlHTTP({
   schema,
   pretty: true,
   graphiql: true

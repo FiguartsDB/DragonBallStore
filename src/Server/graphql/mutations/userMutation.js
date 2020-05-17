@@ -25,14 +25,12 @@ const userMutation = {
                 type: GraphQLString
             },
             validated: {
-                type: new GraphQLNonNull(GraphQLBoolean)
+                type: GraphQLBoolean
             }
         },
         resolve(root, args) { 
             return {
-                statusCode: 200,
-                message: "User creaded succesfull",
-                result: args
+			  ...args
             }
         }
     }
