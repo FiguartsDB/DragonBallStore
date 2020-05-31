@@ -1,3 +1,4 @@
+import { signToken } from '../../utils/Auth/jwt'
 import {
     GraphQLString,
     GraphQLNonNull,
@@ -28,10 +29,12 @@ const userMutation = {
                 type: GraphQLBoolean
             }
         },
-        resolve(root, args) { 
-            return {
-			  ...args
-            }
+        async resolve(root, args, context) {
+            const { model, res } = context()
+            const user = await model.User.create({ ...args })
+            const token = signToken(user)
+            res.cookie('_sid', token, {httpOnly: true})
+            return user
         }
     }
 }

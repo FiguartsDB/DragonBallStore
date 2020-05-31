@@ -1,4 +1,5 @@
-import { GraphQLList, GraphQLID, GraphQLNonNull } from 'graphql'
+import { GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql'
+import { isTokenValid } from '../../utils/Auth/jwt'
 import User from '../schemas/userSchema'
 
 /**
@@ -9,34 +10,14 @@ import User from '../schemas/userSchema'
 const users = {
   getUsers: {
 	type: new GraphQLList(User),
-	resolve(root, args){
-		return [
-			{
-				id: '1',
-				name: 'Edgar',
-				lastname: 'Figueroa',
-				email: 'edgar.figueora@greeagent.com',
-				password: '123',
-				validated: false
-			},
-			{
-				id: '2',
-				name: 'Nancy',
-				lastname: 'De anda',
-				email: 'Nancy.de.anda@gmail.com',
-				password: '123',
-				avatar: 'avatar-url',
-				validated: true
-			},
-			{
-				id: '3',
-				name: 'Rafael',
-				lastname: 'Lopez',
-				email: 'rafa@gmail.com',
-				password: '101010',
-				validated: true
+		async resolve(root, args, context) {
+			const { model, token } = context()
+			const { error } = await isTokenValid(token)
+			if (error) {
+				throw new Error(error);
 			}
-		]
+			
+			return model.User.findAll()
 	}
   },
   getUser: {
@@ -44,19 +25,16 @@ const users = {
 	args: {
 	  id: {
 		name: 'id',
-		type: new GraphQLNonNull(GraphQLID)
-	  }
+		type: GraphQLID
+		}
 	},
-	resolve(root, args){
-	  return {
-		id: '1',
-		name: 'graphql',
-		lastname: 'edgar',
-		email: 'basic graphql',
-		password: '123',
-		avatar: 'avatar',
-		validated: true
-	  }
+	async resolve(root, args, context){
+		const { model, token } = context()
+		const { error } = await isTokenValid(token)
+		if (error) 
+			throw new Error(error);
+		
+		return model.User.findOne({ where: { id: args.id } })
 	}
   }
 }

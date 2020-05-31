@@ -1,10 +1,12 @@
+import { encrypt } from '../../utils/hashStrings';
+
 const User = (sequilize, DataType) => 
   sequilize.define('User', {
 	id: {
 	  primaryKey: true,
 	  allowNull: false,
 	  type: DataType.UUID,
-	  defaultValue: sequilize.UUIDV4
+	  defaultValue: DataType.UUIDV4()
 	},
 	name: {
 	  type: DataType.STRING,
@@ -33,7 +35,7 @@ const User = (sequilize, DataType) =>
 	  allowNull: false,
 	  validate: {
 		len: {
-		  args: 6,
+		  args: 3,
 		  msg: 'Password must be atleast 3 characters in length'
 		}
 	  }
@@ -44,8 +46,15 @@ const User = (sequilize, DataType) =>
 	},
 	validated: {
 	  type: DataType.BOOLEAN,
-	  allowNull: false
+		allowNull: false,
+		defaultValue: false
 	}
+  },
+  {
+	  hooks: {
+		  beforeCreate: async user => 
+		   user.password = await encrypt(user.password)
+	  }	  
   })
 
 

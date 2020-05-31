@@ -8,16 +8,14 @@ const Home = () => {
   return (
 	<>
 	  <h1>Home</h1>
-	  <UserData userId={3}/>
+	  <UserData />
 	</>
   )
 }
 
 
-const UserData = ({ userId }) => {
-  const { loading, error, data } = useQuery(GET_USERS, {
-	variables: { userId: 3}
-  })
+const UserData = () => {
+  const { loading, error, data } = useQuery(GET_USERS)
   let isLoading = false
   let isError = false
 
@@ -31,14 +29,6 @@ const UserData = ({ userId }) => {
 	  {data && data.getUsers.map( user => (
 		  <p key={user.id}>{`${user.name} ${user.lastname}`}</p>
 	  ))}
-	  <h2>Indivbidual usr</h2>
-	  {data && (
-		<div>
-		  <p>{`${data.getUser.name} ${data.getUser.lastname}`}</p>
-		  <p>{data.getUser.email}</p>
-		  <p>{data.getUser.avatar}</p>
-		</div>
-	  )}
 	  </>
 	)
 }

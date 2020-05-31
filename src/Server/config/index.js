@@ -4,7 +4,8 @@ dotenv.config()
 
 module.exports ={
   env: process.env.NODE_ENV === 'production',
-  port: process.env.PORT || 3000,
+	port: process.env.PORT || 3000,
+  jwtSecret: process.env.JWT_SECRET,
   db: {
 	name: process.env.DB_NAME,
 	user: process.env.DB_USER,
