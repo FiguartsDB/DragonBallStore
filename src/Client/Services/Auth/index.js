@@ -9,7 +9,7 @@ const login = async (userLogin) => {
             },
             body: JSON.stringify(userLogin)
         }
-        console.log(BASE_URI)
+        
         const result = await fetch(`${BASE_URI}/auth/login`, config)
         const data = await result.json()
         if (data.error)

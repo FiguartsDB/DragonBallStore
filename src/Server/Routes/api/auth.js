@@ -16,7 +16,7 @@ route.post('/login', async (req, res, next) => {
   res.cookie('_sid', token, { httpOnly: true })
   res.status(200).json({
     message: 'Login success',
-    result: { sub: user.id, name: `${user.name} ${user.lastname}` }
+    result: { sub: token }
   })
   res.end()
 })
@@ -29,7 +29,7 @@ route.post('/singup', async (req, res, next) => {
   res.cookie('_sid', token, { httpOnly: true })
   res.status(200).json({
     message: 'Singup success',
-    result: { sub: user.id, name: `${user.name} ${user.lastname}` }
+    result: { sub: token }
   })
   res.end()
 })

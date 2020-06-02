@@ -1,12 +1,11 @@
-import { useContext, useState } from 'react'
-import {login, singup} from '../Services/Auth'
-
-// Context
-import UserContext from '../context/userContext'
+import { useState } from 'react'
+import { login, singup } from '../Services/Auth'
+import { setUserStorage } from '../Utils/Auth'
+import { useHistory } from 'react-router-dom'
 
 const useAuth = () => { 
   const [info, setInfo] = useState({})
-  const { setUser } = useContext(UserContext)
+  const history = useHistory()
 
   const handleChange = (evt) => {
     setInfo({
@@ -17,13 +16,14 @@ const useAuth = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault()
-    if (evt.target.name === 'login') {
-      const { result } = await login(info)
-      setUser(result)
-    } else { 
-      const { result } = await singup(info)
-      setUser(result)
-    }
+    let result
+    if (evt.target.name === 'login') 
+      result = await login(info)
+    else 
+      result = await singup(info)
+    
+    setUserStorage(result)
+    history.push('/dashboard')
   }
 
   return {handleChange, handleSubmit}
