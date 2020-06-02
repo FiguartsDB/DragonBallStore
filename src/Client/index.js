@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import { ApolloProvider } from '@apollo/react-hooks'
-import apolloClient from './api'
+import apolloClient from './services'
 
 // App entry point
 import App from '@components/App'

@@ -11,7 +11,7 @@ const GET_USERS = gql`
 ` 
 
 const GET_USER = gql`
-query getUser($usserId: ID!){
+query getUser($userId: ID!){
   getUser(id: $userId){
     name
     lastname

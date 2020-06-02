@@ -21,7 +21,7 @@ app.set('port', port)
 
 // Routes
 app.use('/', viewRoute)
-app.use('/api/auth', Auth)
+app.use('/auth', Auth)
 
 // Grapghql 
 app.use('/api', graphqlHTTP( (req, res) => ({

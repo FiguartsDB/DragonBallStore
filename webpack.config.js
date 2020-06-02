@@ -68,7 +68,7 @@ module.exports = {
         }),
 	  new webpack.EnvironmentPlugin({
 		NODE_ENV: process.env.NODE_ENV || 'development',
-		API: process.env.API || `http://localhost:${API_PORT}/api/`
+		API: process.env.API || `http://localhost:${API_PORT}/api`
 	  })
     ]
 }
