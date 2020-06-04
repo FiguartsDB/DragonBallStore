@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
+import { getLocalStorage } from '../Utils/Auth'
+const Context = React.createContext()
 
-const Context = React.createContext(false)
-
-export const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState({})
+const UserContextProvider = ({ children }) => {
+  const userInfo = getLocalStorage('sub')
+  const [user, setUser] = useState(userInfo)
 
   return (
     <Context.Provider value={{ user, setUser }}>
@@ -13,3 +14,4 @@ export const UserContextProvider = ({ children }) => {
 }
 
 export default Context
+export { UserContextProvider }

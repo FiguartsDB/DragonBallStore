@@ -7,6 +7,7 @@ const route = require('express').Router()
 
 route.post('/login', async (req, res, next) => {
   const { password, email } = req.body
+
   const user = await db.sequelize.models.User.findOne({ where: { email: email } })
   
   if (!user || !(await bcrypt.compare(password, user.password)))
@@ -16,7 +17,9 @@ route.post('/login', async (req, res, next) => {
   res.cookie('_sid', token, { httpOnly: true })
   res.status(200).json({
     message: 'Login success',
-    result: { sub: token }
+    result: {
+      info: {sub: user.id, name: `${user.name} ${user.lastname}`}
+    }
   })
   res.end()
 })
@@ -26,10 +29,12 @@ route.post('/singup', async (req, res, next) => {
   const user = await db.sequelize.models.User.create({ ...userdata })
 
   const token = signToken(user)
-  res.cookie('_sid', token, { httpOnly: true })
+  res.cookie('_sid', token, { httpOnly: true }).send
   res.status(200).json({
     message: 'Singup success',
-    result: { sub: token }
+    result: {
+      info: {sub: user.id, name: `${user.name} ${user.lastname}`}
+    }
   })
   res.end()
 })

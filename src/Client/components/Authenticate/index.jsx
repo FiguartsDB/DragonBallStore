@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
-// Utils
-import { getUserToken } from '../../Utils/Auth'
+// Context
+import userContext from '../../context/userContext'
 
 const AuthComponent = (props) => { 
+  const { user } = useContext(userContext)
   const history = useHistory()
 
   useEffect(() => { 
-    if (!getUserToken())
+    if (!user)
       history.push('/')
   }, []);
 

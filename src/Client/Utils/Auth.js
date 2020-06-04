@@ -1,18 +1,18 @@
 
-const setUserStorage = ({ result: { sub } }) =>
-  localStorage.setItem('sub', JSON.stringify(sub))
+const setLocalStorage = (key, data ) =>
+  localStorage.setItem(key, JSON.stringify(data))
 
-const getUserToken = () => JSON.parse(localStorage.getItem('sub'))
+const getLocalStorage = (key) => JSON.parse(localStorage.getItem(key))
 
-const deleteUser = () => localStorage.removeItem('sub')
+const deleteStorage = (key) => localStorage.removeItem(key)
 
 //Get wherever cookie by its name
 const getCookie = (cookieName) => 
   RegExp(`${cookieName}=[^;]+`).exec(document.cookie)
 
 export {
-  setUserStorage,
-  getUserToken,
-  deleteUser,
+  setLocalStorage,
+  getLocalStorage,
+  deleteStorage,
   getCookie
 }

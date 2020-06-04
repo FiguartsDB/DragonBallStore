@@ -4,5 +4,4 @@ const client = new ApolloClient({
     uri: process.env.API,
 });
 
-
 export default client

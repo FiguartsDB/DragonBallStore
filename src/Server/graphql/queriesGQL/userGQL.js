@@ -24,13 +24,14 @@ const users = {
 	type: User,
 	args: {
 	  id: {
-		name: 'id',
-		type: GraphQLID
+			name: 'id',
+			type: GraphQLID
 		}
 	},
 	async resolve(root, args, context){
 		const { model, token } = context()
 		const { error } = await isTokenValid(token)
+		console.log(token, 'token =>')
 		if (error) 
 			throw new Error(error);
 		
