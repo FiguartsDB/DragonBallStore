@@ -1,15 +1,17 @@
-import { useState, useContext } from 'react'
-import { login, singup } from '../Services/Auth'
+import { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-
+import { useLazyQuery } from '@apollo/react-hooks'
 import { setLocalStorage } from '../Utils/Auth'
 
+import { LOGIN } from '../Services/Graphql/Auth'
+import { GET_USER } from '../Services/Graphql/User/index'
 // Context
 import userContext from '../context/userContext'
 
 const useAuth = () => { 
   const { setUser } = useContext(userContext)
   const [info, setInfo] = useState({})
+  const [getAuth, { loading, data }] = useLazyQuery(LOGIN);
   const history = useHistory()
 
   const handleChange = (evt) => {
@@ -21,15 +23,16 @@ const useAuth = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault()
-    let userInfo
-    if (evt.target.name === 'login') 
-      userInfo = await login(info)
-    else 
-      userInfo = await singup(info)
+    if (evt.target.name === 'login')
+      getAuth({ variables: {email: info.email , password: info.password}})
     
-    setLocalStorage('sub', userInfo.result.info)
-    setUser(userInfo.result.info)
-    history.push('/dashboard')
+    // manage request grapql data
+    if (data && (data.login || data.singup)) { 
+      const userInfo = data.login || data.singup
+      setLocalStorage('sub', userInfo)
+      setUser(userInfo)
+      history.push('/dashboard')
+    }
   }
 
   return {handleChange, handleSubmit}

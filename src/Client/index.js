@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import { ApolloProvider } from '@apollo/react-hooks'
-import apolloClient from './Services/Graphql/index'
+import apolloClient from './Services/Graphql/'
 
 // App entry point
 import App from '@components/App'

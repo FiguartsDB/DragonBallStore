@@ -3,10 +3,10 @@ import cookieParser from 'cookie-parser'
 import graphqlHTTP from 'express-graphql'
 import { default as expressPlayground} from 'graphql-playground-middleware-express'
 import cors from 'cors'
+import auth from '../middleware/auth'
 import { port, env } from '../config'
 import schema from '../graphql'
 import context from '../graphql/context'
-import Auth from '../Routes/api/auth'
 import viewRoute from '../Routes/Views'
 
 const app = express()
@@ -15,13 +15,13 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
+app.use(auth())
 
 // settin up app
 app.set('port', port)
 
 // Routes
 app.use('/', viewRoute)
-app.use('/auth', Auth)
 
 // Grapghql 
 app.use('/api', graphqlHTTP( (req, res) => ({

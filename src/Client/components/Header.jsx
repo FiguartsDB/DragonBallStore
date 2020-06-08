@@ -20,10 +20,12 @@ const Header = () => {
   if (menuItem) { 
     if (!user)
       $link = <li><Link to="/login"> Login </Link></li>
+    
     $ul = <>
       <li>item 1</li>
       <li>item 2</li>
       <li>item 3</li>
+      {user && <li>{user.name}</li>}
     </>
   }
 

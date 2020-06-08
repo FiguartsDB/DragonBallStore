@@ -1,14 +1,14 @@
-import { isTokenValid } from '../../utils/Auth/jwt'
+import { signToken } from '../../utils/Auth/jwt'
 import {
     GraphQLString,
     GraphQLNonNull,
     GraphQLBoolean
 } from 'graphql'
-import user from '../schemas/userSchema'
+import auth from '../schemas/authSchema'
 
-const userMutation = {
-    createUser: {
-        type: user,
+const singupMutation = {
+    singup: {
+        type: auth,
         args: {
             name: {
                 type: new GraphQLNonNull(GraphQLString)
@@ -30,14 +30,20 @@ const userMutation = {
             }
         },
         async resolve(root, args, context) {
-            const { model, req } = context()
-            if (!req.isAuth) 
-                throw new Error('Unauthenticated!');
+          const { model } = context()
             
-            const user = await model.User.create({ ...args })
-            return user
+          const user = await model.User.create({ ...args })
+          const token = await signToken(user)
+          
+          res.cookie('_sid', token, { expire: 400000 + Date.now() })
+          //tokenExpiration in minutes
+          return {
+            userId: user.id,
+            expireToken: 60,
+            name: `${user.name} ${user.lastname}`
+          };
         }
     }
 }
 
-export default userMutation
+export default singupMutation

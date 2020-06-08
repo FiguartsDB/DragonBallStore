@@ -1,5 +1,4 @@
-import { GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql'
-import { isTokenValid } from '../../utils/Auth/jwt'
+import { GraphQLList, GraphQLID, GraphQLNonNull } from 'graphql'
 import User from '../schemas/userSchema'
 
 /**
@@ -11,30 +10,29 @@ const users = {
   getUsers: {
 	type: new GraphQLList(User),
 		async resolve(root, args, context) {
-			const { model, token } = context()
-			const { error } = await isTokenValid(token)
-			if (error) {
-				throw new Error(error);
-			}
+			const { model, req } = context()
+			
+			if (!req.isAuth)
+				throw new Error('Unauthenticated!');
 			
 			return model.User.findAll()
 	}
   },
-  getUser: {
+	getUser: {
+		
 	type: User,
 	args: {
 	  id: {
 			name: 'id',
-			type: GraphQLID
+			type: new GraphQLNonNull(GraphQLID)
 		}
 	},
 	async resolve(root, args, context){
-		const { model, token } = context()
-		const { error } = await isTokenValid(token)
-		console.log(token, 'token =>')
-		if (error) 
-			throw new Error(error);
-		
+		const { model, req } = context()
+
+		if (!req.isAuth)
+			throw new Error('Unauthenticated!');
+		console.log(req)
 		return model.User.findOne({ where: { id: args.id } })
 	}
   }
