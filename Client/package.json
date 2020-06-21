@@ -2,7 +2,7 @@
   "name": "dragonballstore",
   "version": "1.0.0",
   "description": "Store for dragonball figuarts",
-  "main": "./src/Client/index.js",
+  "main": "./src/index.js",
   "contributors": [
     {
       "name": "Rafael Lopez",
@@ -16,8 +16,7 @@
     }
   ],
   "scripts": {
-    "dev": "webpack-dev-server",
-    "server": "nodemon --exec babel-node src/Server/index.js"
+    "start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -30,25 +29,13 @@
   },
   "homepage": "https://github.com/FiguartsDB/DragonBallStore#readme",
   "dependencies": {
-    "@apollo/react-hooks": "^3.1.5",
-    "apollo-boost": "^0.4.9",
-    "bcrypt": "^4.0.1",
-    "concurrently": "5.1.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "2.8.5",
-    "dotenv": "8.2.0",
-    "express": "4.17.1",
-    "express-graphql": "0.9.0",
+    "@apollo/react-hooks": "3.1.5",
+    "apollo-boost": "0.4.9",
     "graphql": "15.0.0",
-    "graphql-playground-middleware-express": "^1.7.15",
-    "jsonwebtoken": "^8.5.1",
-    "pg": "^8.0.3",
-    "pg-hstore": "2.3.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-router": "5.1.2",
-    "react-router-dom": "5.1.2",
-    "sequelize": "5.21.7"
+    "react-router-dom": "5.1.2"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
@@ -64,7 +51,6 @@
     "html-webpack-plugin": "4.0.1",
     "jest": "25.2.0",
     "mini-css-extract-plugin": "0.9.0",
-    "nodemon": "2.0.2",
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.7.0",
     "style-loader": "1.1.3",
@@ -72,17 +58,9 @@
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.10.3"
   },
-  "nodemonConfig": {
-    "ignore": [
-      "src/Client",
-      "node_modules",
-      "build",
-      "*.config.js",
-      "*.json"
-    ]
-  },
   "browserslist": [
     "last 2 version",
     "> 2%"
-  ]
+  ],
+  "proxy": "http://server:3000"
 }

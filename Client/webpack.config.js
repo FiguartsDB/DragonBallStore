@@ -1,25 +1,26 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const dotenv = require('dotenv');
 
-
-dotenv.config();
 // Bundled files dir.
 const DIR_BASE = path.join(__dirname, 'build');
 const pathResolve = (route) => path.resolve(__dirname, route);
 
+const API_HOST = process.env.API || 'localhost';
 const API_PORT = process.env.PORT || 3000;
+const PORT = process.env.CLIENT_PORT || 8080;
 
 module.exports = {
     devtool: 'eval-source-map',
-    entry: path.resolve(__dirname, './src/Client/index.js'),
+    entry: path.resolve(__dirname, './src/index.js'),
     output: {
         path: DIR_BASE,
         publicPath: '/',
         filename: '[name].js',
     },
     devServer: {
+		host: '0.0.0.0',
+		port: PORT,
         contentBase: DIR_BASE,
         publicPath: '/',
         historyApiFallback: true, // save history routes
@@ -27,8 +28,8 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {
-            '@pages': pathResolve('./src/Client/pages'),
-            '@components': pathResolve('./src/Client/components')
+            '@pages': pathResolve('./src/pages'),
+            '@components': pathResolve('./src/components')
         }
     },
     module: {
@@ -68,7 +69,7 @@ module.exports = {
         }),
 	  new webpack.EnvironmentPlugin({
 		NODE_ENV: process.env.NODE_ENV || 'development',
-		API: process.env.API || `http://localhost:${API_PORT}/api`
+		API: process.env.API || `http://${API_HOST}:${API_PORT}/api`
 	  })
     ]
 }

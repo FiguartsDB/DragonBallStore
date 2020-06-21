@@ -1,0 +1,63 @@
+{
+  "name": "dragonballstore",
+  "version": "1.0.0",
+  "description": "Store for dragonball figuarts",
+  "main": "./src/index.js",
+  "contributors": [
+    {
+      "name": "Rafael Lopez",
+      "email": "rafael.iskoat@gmail.com",
+      "url": "https://github.com/Rafael-LH"
+    },
+    {
+      "name": "Edgar Figueroa",
+      "email": "edgar.figueroa.gtz@gmail.com",
+      "url": "https://github.com/eddcode"
+    }
+  ],
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FiguartsDB/DragonBallStore.git"
+  },
+  "author": "FiguartsDB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FiguartsDB/DragonBallStore/issues"
+  },
+  "homepage": "https://github.com/FiguartsDB/DragonBallStore#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^15.0.0",
+    "graphql-playground-middleware-express": "^1.7.15",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.0.3",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "jest": "^25.2.0",
+    "nodemon": "^2.0.2"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "src/Client",
+      "node_modules",
+      "build",
+      "*.config.js",
+      "*.json"
+    ]
+  }
+}

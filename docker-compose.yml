@@ -1,0 +1,52 @@
+version: '3.7'
+
+services: 
+  db:
+    container_name: dragonballstore
+    image: postgres
+    environment: 
+     - POSTGRES_USER=${DB_USER}
+     - POSTGRES_PASSWORD=${DB_PASSWORD}
+     - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - psqldata:/var/lib/postgresql/data
+  server: 
+    container_name: server
+    build:
+      context: ./Server
+      dockerfile: Dockerfile
+    environment:
+      - JWT_SECRET="${JWT_SECRET}"
+      - DB_NAME="${DB_NAME}"
+      - DB_USER="${DB_USER}"
+      - DB_PASSWORD="${DB_PASSWORD}"
+      - DB_DIALECT="${DB_DIALECT}"
+      - DB_HOST=db
+    ports:
+      - "${PORT}:${PORT}"
+    links:
+      - db
+    volumes:
+      - ./Server:/usr/src/app 
+      - /usr/src/app/node_modules
+    command: "npm start"
+  client:
+    container_name: client
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+    environment:
+      - CLIENT_PORT=${CLIENT_PORT}
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - server
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+    volumes:
+      - ./Client:/usr/src/app 
+      - /usr/src/app/node_modules
+    command: "npm start"
+volumes:
+  psqldata:
