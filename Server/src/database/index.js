@@ -5,8 +5,10 @@ import Sequelize from 'sequelize'
 import {db} from '../config'
 
 const models = {}
+
 const options = {
-  dialect: db.dialect,
+  host: db.host,
+  dialect: db.dialect || 'postgres',
   define: {
 	underscored: true
   }

@@ -1,54 +1,26 @@
 # DragonBallStore
 Store of Dragon ball SH Figuarts
 
-> This repo use Postress as engine storage
+> This repo use Postgres as engine storage
+
+You should must setting up some enviroment variables just copy __.env.example__ to __.env__ file.
+You want to run the proyect with out docker, you should copy __.env.example__ to __Server/.env__ & __Client/.env__ though.
+
 > You can use docker postgress container insted of install it in you machine
 
 ### Docker-cli
 ``` bash
-$ docker volume create DragonBallStore
-$ docker run \
-	--name dragonBallDB \
-	-e POSTGRES_PASSWORD='123' \
-	--mount src=DragonBallStore=/var/lib/postgresql/data \
-	-p 5432:5432 \
-	-d postgres
-```
-> Execute docker as interactive mode
-```bash
-$ docker run exec -it dragonBallDB psql -U postgres
+$ docker-compose up --build -d
 ```
 
-> Create database dragon_ball_store
-> Copy .env.example to .env and fill out the fields
 ## Install
-
+There are a pair of folder *Client* and *Server*. Move to client and server to run the proyect.
 ```bash
-npm install
+  $ cd Client && npm install
+  $ cd Server && npm install
 ```
 or
-
 ```bash
-yarn install
+  $ cd Client && yarn
+  $ cd Server && yarn
 ```
-
-## Settings
-Copy ___.env.example___ file to ___.env___ file and fill out enviroment variables. Actualy there just 2 scripts to run the proyect
-
-- Front-end (webpack live server - react)
-    ```bash
-        npm run dev
-    ```
-    or
-    ```bash
-        yarn run dev
-    ```
-
-- Back-end (nodemon - express)
-    ```bash
-        npm run dev
-    ```
-    or
-    ```bash
-        yarn run dev
-    ```
