@@ -26,12 +26,13 @@ services:
       - DB_HOST=db
     ports:
       - "${PORT}:${PORT}"
+      - 9229:9229
     links:
       - db
     volumes:
       - ./Server:/usr/src/app 
       - /usr/src/app/node_modules
-    command: "npm start"
+    command: "yarn run debug"
   client:
     container_name: client
     build:
