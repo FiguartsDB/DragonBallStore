@@ -5,6 +5,7 @@ import {
     GraphQLBoolean
 } from 'graphql'
 import auth from '../schemas/authSchema'
+import { errorType } from '../../utils/handleGraphErr/handleError'
 
 const singupMutation = {
     singup: {
@@ -30,18 +31,27 @@ const singupMutation = {
             }
         },
         async resolve(root, args, context) {
-          const { model } = context()
+		  try{
+            const { model } = context()
             
-          const user = await model.User.create({ ...args })
-          const token = await signToken(user)
+	        const user = await model.User.create({ ...args })
+	        const token = await signToken(user)
           
-          res.cookie('_sid', token, { expire: 400000 + Date.now() })
-          //tokenExpiration in minutes
-          return {
-            userId: user.id,
-            expireToken: 60,
-            name: `${user.name} ${user.lastname}`
-          };
+		    //tokenExpiration in minutes
+		    return {
+			  userId: user.id,
+			  token: token,
+			  expireToken: 60,
+			  name: `${user.name} ${user.lastname}`
+			};
+
+		  }catch(error){
+			if(error.message === 'Validation error')
+			  throw new Error(errorType.USER_ALREADY_EXISTS)
+
+			throw new Error(errorType.SERVER_ERROR)
+			  
+		  }
         }
     }
 }

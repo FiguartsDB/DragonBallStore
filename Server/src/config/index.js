@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-module.exports ={
+module.exports = {
   env: process.env.NODE_ENV === 'production',
   port: process.env.PORT || 3000,
   jwtSecret: process.env.JWT_SECRET,

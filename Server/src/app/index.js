@@ -8,6 +8,7 @@ import { port, env } from '../config'
 import schema from '../graphql'
 import context from '../graphql/context'
 import viewRoute from '../Routes/Views'
+import parseError from '../utils/handleGraphErr/handleError'
 
 const app = express()
 
@@ -26,12 +27,13 @@ app.use('/', viewRoute)
 // Grapghql 
 app.use('/api', graphqlHTTP( (req, res) => ({
     schema,
+	customFormatErrorFn: error => ({...parseError(error.message)}),
     context: () => context(req, res)
   })
 ))
 
 // Graphql playgrond
 if(!env)
-app.get('/playground', expressPlayground({ endpoint: '/api' }));
+  app.get('/playground', expressPlayground({ endpoint: '/api' }));
 
 export default app

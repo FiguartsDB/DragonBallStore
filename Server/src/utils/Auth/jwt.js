@@ -7,6 +7,7 @@ const signToken = user => {
         name: `${user.name} ${user.lastname}`,
         email: user.email
     }
+
     const token = jwt.sign(payload, jwtSecret, { expiresIn: '1h' })
     return token
 }
