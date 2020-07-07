@@ -22,7 +22,8 @@ fs.readdirSync(direntities)
   .filter(file => file.slice(-3) === '.js' )
   .forEach(file => {
     const model = sequelize.import(path.join(direntities, file))
-    models[model] = model
+	const modelName = file.slice(0,-3)
+    models[modelName] = model
   });
 
 // Associate Entities
@@ -32,7 +33,5 @@ Object.keys(models).forEach( modelName => {
 })
 
 models.sequelize = sequelize
-
-
 
 export default models

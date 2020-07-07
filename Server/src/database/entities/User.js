@@ -1,6 +1,6 @@
-import { encrypt } from '../../utils/hashStrings';
+import { encrypt } from '../../utils/hashStrings'
 
-const User = (sequilize, DataType) => 
+const UserModel = (sequilize, DataType) => 
   sequilize.define('User', {
 	id: {
 	  primaryKey: true,
@@ -57,5 +57,4 @@ const User = (sequilize, DataType) =>
 	  }	  
   })
 
-
-export default User
+export default UserModel
