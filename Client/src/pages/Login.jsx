@@ -9,7 +9,7 @@ const Login = () => {
     <>
       <FormLogin />
       <AccountFooter
-        accountText='do not you still have an account'
+        accountText='Do not you still have an account?'
         accountAction='Sing up'
         accountPage='/singup'
       />

@@ -8,11 +8,18 @@ import { GET_USER } from '../Services/Graphql/User/index'
 // Context
 import userContext from '../context/userContext'
 
+const queryOptions = {	
+  onError: (error) => console.log(error, 'amm')
+}
+
 const useAuth = () => { 
+  const history = useHistory()
   const { setUser } = useContext(userContext)
   const [info, setInfo] = useState({})
-  const [getAuth, { loading, data }] = useLazyQuery(LOGIN);
-  const history = useHistory()
+  const [errInfo, setErrInfo] = useState(false)
+  const [getAuth, { loading, data }] = useLazyQuery(LOGIN, {
+	onError: (error) => setErrInfo(error.message.split(':')[1])
+  });
 
   const handleChange = (evt) => {
     setInfo({
@@ -25,7 +32,9 @@ const useAuth = () => {
     evt.preventDefault()
     if (evt.target.name === 'login')
       getAuth({ variables: {email: info.email , password: info.password}})
-    
+   
+	if(errInfo) return 
+
     // manage request grapql data
     if (data && (data.login || data.singup)) { 
       const userInfo = data.login || data.singup
@@ -35,7 +44,7 @@ const useAuth = () => {
     }
   }
 
-  return {handleChange, handleSubmit}
+  return {handleChange, handleSubmit, errInfo}
 }
 
 export default useAuth

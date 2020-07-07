@@ -28,8 +28,9 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {
-            '@pages': pathResolve('./src/pages'),
-            '@components': pathResolve('./src/components')
+          '@pages': pathResolve('./src/pages'),
+          '@components': pathResolve('./src/components'),
+		  '@styledComponents': pathResolve('./src/styled/Components')
         }
     },
     module: {

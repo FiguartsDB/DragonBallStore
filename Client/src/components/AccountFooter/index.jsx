@@ -1,11 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
+//Styled Components
+import Link from '@styledComponents/Link'
+import FormFooter from '@styledComponents/FormFooter'
 
 const AccountFooter = ({ accountText, accountAction, accountPage}) => (
-    <div>
+    <FormFooter>
       <p>{accountText}</p>
       <Link to={accountPage}>{accountAction}</Link>
-    </div>
+    </FormFooter>
 )
 
 
