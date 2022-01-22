@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  server: 
+   command: "yarn start"
+  client:
+    build:
+      context: ./Client
+      dockerfile: Dockerfile.prod
+    ports:
+      - 80:80
+volumes:
+  psqldata:
+networks:
+  app:
+    driver: bridge
+

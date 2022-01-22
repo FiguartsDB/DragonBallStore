@@ -2,7 +2,7 @@ version: '3.8'
 
 services: 
   db:
-    container_name: dragonballstore
+    container_name: db
     image: postgres
     environment: 
      - POSTGRES_USER=${DB_USER}
@@ -10,41 +10,26 @@ services:
      - POSTGRES_DB=${DB_NAME}
     networks:
       - app
-    ports:
-      - "5432:5432"
-    volumes:
-      - psqldata:/var/lib/postgresql/data
   server: 
-    container_name: server
+    container_name: api
     build:
       context: ./Server
+      dockerfile: Dockerfile
     env_file:
       - ./.env
-    ports:
-      - "${PORT}:${PORT}"
-      - 9229:9229
     links:
       - db
-    volumes:
-      - ./Server:/usr/src/app 
-      - /usr/src/app/node_modules
     networks:
       - app
     command: "yarn run debug"
   client:
     container_name: client
-    build:
-      context: ./Client
     networks: 
       - app
     env_file:
       - ./.env
     ports:
-      - "${CLIENT_PORT}:${CLIENT_PORT}"
-    volumes:
-      - ./Client:/usr/src/app 
-      - /usr/src/app/node_modules
-    command: "npm start"
+      - 80:${CLIENT_PORT}
 volumes:
   psqldata:
 networks:
